@@ -1,0 +1,259 @@
+/* ─── Monad Colosseum – Global Styles ───────────────────────────────────────── */
+
+:root {
+  --bg: #0a0a0f;
+  --surface: rgba(15, 15, 25, 0.85);
+  --accent: #8b5cf6;
+  --accent-glow: rgba(139, 92, 246, 0.4);
+  --red: #ef4444;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --cyan: #06b6d4;
+  --text: #e2e8f0;
+  --text-dim: #64748b;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ─── Canvas ──────────────────────────────────────────────────────────────── */
+#arena-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ─── HUD Overlay ─────────────────────────────────────────────────────────── */
+#hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#hud > * {
+  pointer-events: auto;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+#hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 12px;
+  padding: 12px 24px;
+}
+
+#hud-header h1 {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#match-info {
+  display: flex;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+#match-info span {
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Agent HP Bars ───────────────────────────────────────────────────────── */
+#agent-bars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  max-width: 400px;
+}
+
+.agent-bar {
+  width: 100%;
+  background: var(--surface);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.3s;
+}
+
+.agent-bar.dead {
+  opacity: 0.3;
+  border-color: var(--red);
+}
+
+.agent-bar .agent-name {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  min-width: 90px;
+  color: var(--cyan);
+}
+
+.agent-bar .hp-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.agent-bar .hp-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--green);
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.agent-bar .hp-fill.low {
+  background: var(--yellow);
+}
+
+.agent-bar .hp-fill.critical {
+  background: var(--red);
+}
+
+.agent-bar .hp-text {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  min-width: 40px;
+  text-align: right;
+  color: var(--text-dim);
+}
+
+.agent-bar .action-icon {
+  font-size: 1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ─── Event Log ───────────────────────────────────────────────────────────── */
+#event-log {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 360px;
+  max-height: 260px;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#event-log-inner {
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 260px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.log-entry {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  animation: fadeIn 0.3s ease;
+}
+
+.log-entry .log-turn {
+  color: var(--text-dim);
+  margin-right: 6px;
+}
+
+.log-entry.attack { color: var(--red); }
+.log-entry.defend { color: var(--cyan); }
+.log-entry.alliance { color: var(--green); }
+.log-entry.betrayal { color: var(--yellow); }
+.log-entry.death { color: var(--red); font-weight: 600; }
+.log-entry.match_end { color: var(--accent); font-weight: 600; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Controls ────────────────────────────────────────────────────────────── */
+#controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 12px;
+  padding: 10px 20px;
+}
+
+#controls button {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  padding: 8px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#controls button:hover:not(:disabled) {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+#controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+#ws-status {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--red);
+}
+
+#ws-status.connected {
+  color: var(--green);
+}

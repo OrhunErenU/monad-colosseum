@@ -1,0 +1,20 @@
+{
+  "network": "monad_testnet",
+  "chainId": 10143,
+  "timestamp": "2026-02-11T13:50:39.602Z",
+  "deployer": "0x8aE7eB5040cCA8174344dd52862F511fD12632B9",
+  "contracts": {
+    "BattleNarrator": "0x402Fd1c350e433615BF52fa8564EBfFbbf9322E7",
+    "BuffOracle": "0xED578054ab2De7f5d05E8a57dA8Ea5bc0aB155c5",
+    "BribeEscrow": "0x486b34115c7f006627Bf5dE64929a8E31e6bB540",
+    "RevenueDistributor": "0x2FfB16B4d2AF62494E739673E3603E3C23aFb69B",
+    "Arena": "0x3b9709D245907F8Fa59cab03f38BCE0C8F9FE892",
+    "AgentRegistry": "0xA18A0821416c6499cAb25bF2c90fCEF6E482921F",
+    "Leaderboard": "0x306FF751a5cc0D709231E66F14b58621A1388941"
+  },
+  "roles": {
+    "admin": "0x8aE7eB5040cCA8174344dd52862F511fD12632B9",
+    "gameMaster": "0x8aE7eB5040cCA8174344dd52862F511fD12632B9",
+    "oracle": "0x3b9709D245907F8Fa59cab03f38BCE0C8F9FE892"
+  }
+}
